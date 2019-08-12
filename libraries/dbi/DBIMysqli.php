@@ -191,6 +191,9 @@ class DBIMysqli implements DBIExtension
      */
     public function realQuery($query, $link, $options)
     {
+        if ($GLOBALS['cfg']['Server']['default_charset_from'] && $GLOBALS['cfg']['Server']['default_charset_to']) {
+            $query = mb_convert_encoding($query, $GLOBALS['cfg']['Server']['default_charset_from'], $GLOBALS['cfg']['Server']['default_charset_to']);
+        }
         if ($options == ($options | DatabaseInterface::QUERY_STORE)) {
             $method = MYSQLI_STORE_RESULT;
         } elseif ($options == ($options | DatabaseInterface::QUERY_UNBUFFERED)) {
