@@ -1393,6 +1393,10 @@ class DatabaseInterface
             $default_charset = 'utf8';
             $default_collation = 'utf8_general_ci';
         }
+        // 注入 字符集
+        if ($GLOBALS['cfg']['Server']['default_charset']) {
+            $default_charset = $GLOBALS['cfg']['Server']['default_charset'];
+        }
         $collation_connection = $GLOBALS['PMA_Config']->get('collation_connection');
         if (! empty($collation_connection)) {
             $this->query(

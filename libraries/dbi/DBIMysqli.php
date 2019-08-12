@@ -224,6 +224,7 @@ class DBIMysqli implements DBIExtension
      */
     public function fetchArray($result)
     {
+        return ys_mysqli_fetch_array($result, MYSQLI_BOTH);
         return mysqli_fetch_array($result, MYSQLI_BOTH);
     }
 
@@ -236,6 +237,7 @@ class DBIMysqli implements DBIExtension
      */
     public function fetchAssoc($result)
     {
+        return ys_mysqli_fetch_array($result, MYSQLI_ASSOC);
         return mysqli_fetch_array($result, MYSQLI_ASSOC);
     }
 
@@ -248,6 +250,7 @@ class DBIMysqli implements DBIExtension
      */
     public function fetchRow($result)
     {
+        return ys_mysqli_fetch_array($result, MYSQLI_NUM);
         return mysqli_fetch_array($result, MYSQLI_NUM);
     }
 

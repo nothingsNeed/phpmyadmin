@@ -9,7 +9,17 @@
  *
  * @package PhpMyAdmin
  */
-
+function ys_mysqli_fetch_array($result, $type) {
+	$back = mysqli_fetch_array($result, $type);
+	if ($back && $GLOBALS['cfg']['Server']['default_charset_from'] && $GLOBALS['cfg']['Server']['default_charset_to']) {
+		foreach ($back as &$value_ys) {
+			if ($value_ys) {
+				$value_ys = mb_convert_encoding($value_ys, $GLOBALS['cfg']['Server']['default_charset_to'], $GLOBALS['cfg']['Server']['default_charset_from']);
+			}
+		}
+	}
+	return $back;
+}
 /**
  * This is needed for cookie based authentication to encrypt password in
  * cookie. Needs to be 32 chars long.
@@ -42,6 +52,8 @@ $cfg['Servers'][$i]['auth_type'] = 'config';
 $cfg['Servers'][$i]['user'] = 'root';
 $cfg['Servers'][$i]['password'] = 'ztgame@123';
 $cfg['Servers'][$i]['default_charset'] = 'latin1';
+$cfg['Servers'][$i]['default_charset_from'] = 'gbk';
+$cfg['Servers'][$i]['default_charset_to'] = 'utf-8';
 $cfg['Servers'][$i]['charset'] = 'gbk';
 /* Server parameters */
 $cfg['Servers'][$i]['host'] = 'localhost';
